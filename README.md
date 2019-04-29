@@ -33,7 +33,30 @@ a checkpoint.
 - `i`: Mark as inside
 
 
+## Configurations
+
+- How many chars displayed on screen
+    - See `margin` of `window.Window._describe_text_area()`. It controls how
+        many chars to display before and after the current char.
+
+    E.g. with `margin=3`, you get:
+
+    ```text
+    a  _
+    b  _
+    c  _
+    d  _        // <- this is the current char
+    e  _
+    f  _
+    g  _
+    ```
+
+    A large `margin` gives you better view of the context, but you must have
+    that screen real estate.
+
+
 ## Requirements
 
 - curses (pre-installed on *nix distributions of Python3)
 - json (pre-installed)
+
