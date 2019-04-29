@@ -93,6 +93,18 @@ class Window:
                     self._dataloader.cursor_char += 1
                 except IndexError:
                     self._warning_text = 'Last char in sentence!'
+            elif self._lastkey in [curses.KEY_LEFT, ord('h')]:  # previous sentence
+                try:
+                    self._dataloader.cursor_line -= 1
+                    self._dataloader.cursor_char = 0
+                except IndexError:
+                    self._warning_text = 'First sentence in corpus!'
+            elif self._lastkey in [curses.KEY_RIGHT, ord('l')]: # next sentence
+                try:
+                    self._dataloader.cursor_line += 1
+                    self._dataloader.cursor_char = 0
+                except IndexError:
+                    self._warning_text = 'Last sentence in corpus!'
             elif self._lastkey in list(map(ord, 'Ib')):         # tagging 'begin', to insert mode
                 self._mode = 'insert'
             elif self._lastkey == ord('i'):                     # tag 'within'
@@ -156,7 +168,7 @@ class Window:
         self._describe_text_area(width=width, height=height)
 
     def _describe_text_area(self, width: int, height: int,
-            margin: int=3, padding: int=5):
+            margin: int=9, padding: int=5):
         '''Refreshes text display.'''
         assert margin >= 2
         center_idx = self._dataloader.cursor_char
